@@ -43,7 +43,8 @@
 (package-initialize)
 
 (require 'auto-complete)
-(add-to-list 'ac-dictionary-directories "/home/leodt/.emacs.d/elpa/auto-complete-20120717/dict/")
+;;(add-to-list 'ac-dictionary-directories "/home/leodt/.emacs.d/elpa/auto-complete-20120717/dict/")
+(require 'go-autocomplete)
 (require 'auto-complete-config)
 (ac-config-default)
 
@@ -56,9 +57,13 @@
 (require 'ido)
 (ido-mode t)
 
+(require 'smex)
+(smex-initialize)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+
 (require 'js3-mode)
 (add-to-list 'ac-modes 'js3-mode)
-
 
 ;; web dev
 (require 'zencoding-mode)
@@ -67,7 +72,6 @@
 (require 'sanityinc-tomorrow-eighties-theme)
 
 (setq sgml-basic-offset 4)
-
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
