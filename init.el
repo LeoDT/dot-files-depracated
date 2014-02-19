@@ -35,14 +35,17 @@
 (setq tab-always-indent 0)
 (setq tab-width 4)
 
+(global-linum-mode 1)
+
 ;;shortcut
 (global-set-key (kbd "C-t") 'set-mark-command)
+(global-set-key (kbd "M-`") 'next-multiframe-window)
 
 ;;font
 (set-default-font "Inconsolata 14")
 (set-fontset-font "fontset-default" 'unicode "Microsoft Yahei 12")
 
-;;packages
+;;Packages
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
@@ -75,8 +78,40 @@
 
 ;; web dev
 (require 'emmet-mode)
+(add-hook 'sgml-mode-hook 'emmet-mode)
+(add-hook 'css-mode-hook  'emmet-mode)
+(add-hook 'emmet-mode-hook (lambda () (setq emmet-indentation 4)))
+(setq emmet-move-cursor-between-quotes t)
 
 (projectile-global-mode)
-(setq projectile-enable-caching 1)
+(setq projectile-enable-caching t)
 
 (require 'base16-eighties-theme)
+
+(setq sr-speedbar-right-side nil)
+(setq speedbar-use-images nil)
+(setq sr-speedbar-max-width 26)
+(setq sr-speedbar-width-x 22)
+
+(make-face 'speedbar-face)
+(set-face-font 'speedbar-face "Inconsolata 12")
+(setq speedbar-mode-hook '(lambda () (buffer-face-set 'speedbar-face)))
+
+(require 'indent-guide)
+(indent-guide-global-mode)
+
+(require 'bookmark+)
+
+(cd "C:/datayes/trunk/")
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks"))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
