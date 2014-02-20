@@ -29,19 +29,27 @@
 
 (setq column-number-mode 1)
 
-(setq-default make-backup-files 0)
+(setq
+   backup-by-copying t      ; don't clobber symlinks
+   backup-directory-alist
+    '(("." . "~/.saves"))    ; don't litter my fs tree
+   delete-old-versions t
+   kept-new-versions 6
+   kept-old-versions 2
+   version-control t)       ; use versioned backups
 (setq x-select-enable-clipboard 1)
 (setq indent-tabs-mode 0)
 (setq tab-always-indent 0)
 (setq tab-width 4)
 
-(global-linum-mode 1)
+;; (global-linum-mode 1)
 
 ;;shortcut
 (global-set-key (kbd "C-t") 'set-mark-command)
 (global-set-key (kbd "M-`") 'next-multiframe-window)
 
 ;;font
+(prefer-coding-system 'utf-8)
 (set-default-font "Inconsolata 14")
 (set-fontset-font "fontset-default" 'unicode "Microsoft Yahei 12")
 
@@ -55,14 +63,17 @@
 (require 'auto-complete-config)
 (ac-config-default)
 
-(require 'yasnippet)
-(yas/global-mode 1)
+;; (require 'yasnippet)
+;; (yas/global-mode 1)
 
 (require 'ibuffer)
 (global-set-key ( kbd "C-x C-b ")' ibuffer)
 
 (require 'ido)
 (ido-mode t)
+(require 'flx-ido)
+(flx-ido-mode 1)
+(setq ido-use-faces nil)
 
 (require 'smex)
 (smex-initialize)
@@ -74,7 +85,8 @@
 (setq-default js3-auto-indent-p 1)
 (setq-default js3-enter-indents-newline 1)
 (setq-default js3-indent-level 4)
-(setq-default js3-indent-on-enter-key 1)
+;; (setq-default js3-indent-on-enter-key 1)
+(setq-default js3-consistent-level-indent-inner-bracket 1)
 
 ;; web dev
 (require 'emmet-mode)
@@ -82,6 +94,12 @@
 (add-hook 'css-mode-hook  'emmet-mode)
 (add-hook 'emmet-mode-hook (lambda () (setq emmet-indentation 4)))
 (setq emmet-move-cursor-between-quotes t)
+
+(add-hook 'sgml-mode-hook
+	  (lambda ()
+	    ;; Default indentation to 2, but let SGML mode guess, too.
+	    (set (make-local-variable 'sgml-basic-offset) 4)
+	    (sgml-guess-indent)))
 
 (projectile-global-mode)
 (setq projectile-enable-caching t)
@@ -97,10 +115,20 @@
 (set-face-font 'speedbar-face "Inconsolata 12")
 (setq speedbar-mode-hook '(lambda () (buffer-face-set 'speedbar-face)))
 
-(require 'indent-guide)
-(indent-guide-global-mode)
+;; (require 'indent-guide)
+;; (indent-guide-global-mode)
 
 (require 'bookmark+)
+
+(require 'multiple-cursors)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(global-unset-key (kbd "M-<down-mouse-1>"))
+(global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
+
+(require 'popwin)
+(popwin-mode 1)
 
 (cd "C:/datayes/trunk/")
 (custom-set-variables
@@ -108,7 +136,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks"))
+ '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
+ '(column-number-mode 1)
+ '(display-time-mode t)
+ '(js3-boring-indentation t)
+ '(show-paren-mode t)
+ '(sr-speedbar-auto-refresh nil)
+ '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
