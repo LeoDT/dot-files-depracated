@@ -5,6 +5,7 @@
 (column-number-mode 1)
 (display-time-mode 1)
 (show-paren-mode 1)
+(setq ring-bell-function 'ignore)
 
 (setq default-line-spacing 0)
 (setq default-fill-column 90)
@@ -38,9 +39,9 @@
    kept-old-versions 2
    version-control t)       ; use versioned backups
 (setq x-select-enable-clipboard 1)
-(setq indent-tabs-mode 0)
-(setq tab-always-indent 0)
-(setq tab-width 4)
+(setq-default indent-tabs-mode nil)
+(setq-default tab-always-indent 0)
+(setq-default tab-width 4)
 
 ;; (global-linum-mode 1)
 
@@ -51,7 +52,7 @@
 ;;font
 (prefer-coding-system 'utf-8)
 (set-default-font "Inconsolata 14")
-(set-fontset-font "fontset-default" 'unicode "Microsoft Yahei 12")
+(set-fontset-font "fontset-default" 'unicode "Hiragino Sans GB 14")
 
 ;;Packages
 (require 'package)
@@ -95,14 +96,17 @@
 (add-hook 'emmet-mode-hook (lambda () (setq emmet-indentation 4)))
 (setq emmet-move-cursor-between-quotes t)
 
-(add-hook 'sgml-mode-hook
-	  (lambda ()
-	    ;; Default indentation to 2, but let SGML mode guess, too.
-	    (set (make-local-variable 'sgml-basic-offset) 4)
-	    (sgml-guess-indent)))
+;; (add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
+;; (defun web-mode-hook ()
+;;   "Hooks for Web mode."
+;;   (setq web-mode-markup-indent-offset 4)
+;; )
+;; (add-hook 'web-mode-hook  'web-mode-hook)
+
+(setq sgml-basic-offset 4)
+(add-to-list 'auto-mode-alist '("\\.hbs\\'" . sgml-mode))
 
 (projectile-global-mode)
-(setq projectile-enable-caching t)
 
 (require 'base16-eighties-theme)
 
@@ -130,7 +134,6 @@
 (require 'popwin)
 (popwin-mode 1)
 
-(cd "C:/datayes/trunk/")
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
