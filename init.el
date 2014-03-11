@@ -63,6 +63,8 @@
 (require 'auto-complete)
 (require 'auto-complete-config)
 (ac-config-default)
+(add-to-list 'ac-modes 'less-css-mode)
+(add-hook 'less-css-mode-hook 'ac-css-mode-setup)
 
 ;; (require 'yasnippet)
 ;; (yas/global-mode 1)
